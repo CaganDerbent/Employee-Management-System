@@ -44,11 +44,6 @@ const db = mysql.createConnection({
   database:NAME
 })
 
-/*host:"localhost",
-user:"root",
-password:"Rootcugan",
-database:"Employees"*/
-
 
 
 app.get("/data",(req,res)=>{
@@ -154,6 +149,20 @@ app.get("/data/employees/reverse",(req,res)=>{
 
 app.get("/data/employees/value",(req,res)=>{
   const q = "SELECT COUNT(EmployeeID) FROM Employee";
+
+  db.query(q,(err,data)=>{
+      if(err){
+          return res.status(401).json(err);
+      }
+      else{
+          return res.status(200).json(data);
+      }
+
+  })
+});
+
+app.get("/data/employees/salary",(req,res)=>{
+  const q = "SELECT AVG(Salary) FROM Employee";
 
   db.query(q,(err,data)=>{
       if(err){
